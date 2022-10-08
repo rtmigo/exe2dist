@@ -20,4 +20,9 @@ void main() {
           "const buildDate='${nowDate()}';\n"
           "const buildOs='${Platform.operatingSystem}';\n"
           "const buildShortHead='${gitShortHead()}';\n");
+
+  //final rmd = File("README.md").readAsStringSync();
+  //rmd.replaceAll(RegExp("download/[\\d\\.]+/exe2dist"), "download/[\\d\\.]+/exe2dist");
+
+  // download/0.2.2/exe2dist
 }

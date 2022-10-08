@@ -8,13 +8,14 @@ import 'source/constants.g.dart';
 
 Future<void> main(List<String> arguments) async {
   if (arguments.length != 3) {
-    print("exe2dist: native binary compression tool");
-    print("(c) Artsiom iG <github.com/rtmigo>");
+    print("exe2dist (c) Artsiom iG");
     print("version $buildVersion ($buildDate)");
+    print("https://github.com/rtmigo/exe2dist#readme");
+
 
     print("");
     print("Usage:");
-    print("  exe2dist <source-glob> <program-name> <target-dir>");
+    print("  exe2dist <program-name> <source-glob> <target-dir>");
     print("");
     print("Examples:");
     print("  exe2dist theapp myfile.exe distros/");
@@ -28,6 +29,7 @@ Future<void> main(List<String> arguments) async {
 
   try {
     for (final entity in Glob(sourceGlob).listSync()) {
+      // TODO test glob
       if (entity.statSync().type == FileSystemEntityType.file) {
         await binaryToDist(
             sourceExe: File(entity.path),
