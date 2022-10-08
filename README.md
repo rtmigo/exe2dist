@@ -4,15 +4,30 @@ CLI utility that packs a binary executable into a redistributable archive.
 
 --------------------------------------------------------------------------------
 
-`dir/native_binary1` ⮕ `myapp_linux_arm64.tgz` with `myapp` inside 
+Let's imagine that our automated system compiles executables using Kotlin
+Native. Regardless of the platform, the script builds a `compiled.kexe`.
 
-`dir/native_binary2` ⮕ `myapp_windows_amd64.zip` with `myapp.exe` inside
+Before the release, we can collect all the built files in one directory.
+
+* `outs/1/compiled.kexe`
+* `outs/2/compiled.kexe`
+* `outs/3/compiled.kexe`
+
+But how to distinguish and name them? `exe2dist` automatically solves this
+problem.
+
+`outs/1/compiled.kexe` ⮕ `myapp_linux_arm64.tgz` with `myapp` inside
+
+`outs/2/compiled.kexe` ⮕ `myapp_windows_amd64.zip` with `myapp.exe` inside
+
+`outs/3/compiled.kexe` ⮕ `myapp_macos_arm64.tgz` with `myapp` inside
+
 
 --------------------------------------------------------------------------------
-* detects the architecture for which the executable is compiled
-* sets executable bits for *nix binaries (`chmod 755`)
-* adds `.exe` extension to Windows executables 
-* packs the binary to an archive appropriate for the platform
+* It detects the architecture for which the executable is compiled
+* It sets executable bits for *nix binaries (`chmod 755`)
+* It adds `.exe` extension to Windows executables 
+* It packs the binary to an archive appropriate for the platform
 --------------------------------------------------------------------------------
 
 `exe2dist` itself runs on Linux and MacOS. It may process files for other
