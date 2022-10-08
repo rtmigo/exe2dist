@@ -116,7 +116,7 @@ Future<void> binaryToDist(
     {required File sourceExe,
     required String programName,
     required Directory targetDir}) async {
-  createOnNeed(targetDir);
+  createOnNeed(targetDir); // TODO unit test
 
   print("* Source: ${sourceExe.path}");
 
