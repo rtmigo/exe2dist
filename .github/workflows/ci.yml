@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: binary_from_${{ matrix.os }}
-          path: build/exe2dist
+          path: build/*
           retention-days: 3
 
 
