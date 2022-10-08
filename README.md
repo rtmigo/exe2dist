@@ -25,7 +25,11 @@ For use as part of CI/CD, a command-line installation is more suitable.
 Download and unpack the Linux version to the current directory in one line.
 
 ```bash
+# install
 wget -c https://github.com/rtmigo/exe2dist_dart/releases/download/0.2.2/exe2dist_linux_amd64.tgz -O - | tar -xz
+
+# run
+./exe2dist
 ```
 
 Same for the newest version instead of the fixed one.
