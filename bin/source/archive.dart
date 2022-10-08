@@ -59,6 +59,7 @@ class TempExeWithPermissions {
 
   late Directory _tempDir;
   late File _readyExe;
+
   File get readyExe => _readyExe;
 
   TempExeWithPermissions(this._sourceExe) {
@@ -74,15 +75,49 @@ class TempExeWithPermissions {
   }
 }
 
-class TargetFileAlreadyExistsException extends Error {
+class ExpectedException extends Error {}
+
+class TargetFileAlreadyExistsException extends ExpectedException {
   final File file;
+
   TargetFileAlreadyExistsException(this.file);
+
+  @override
+  String toString() {
+    return "$runtimeType: ${file.path}";
+  }
+}
+
+class ParentDirectoryNotExistsException extends ExpectedException {
+  final Directory dir;
+
+  ParentDirectoryNotExistsException(this.dir);
+
+  @override
+  String toString() {
+    return "$runtimeType: ${dir.path}";
+  }
+}
+
+/// Создаёт каталог, если он ещё не существует, но существует родительский.
+void createOnNeed(Directory dir) {
+  if (dir.existsSync()) {
+    return;
+  }
+
+  if (!Directory(path.dirname(dir.path)).existsSync()) {
+    throw ParentDirectoryNotExistsException(dir);
+  }
+
+  dir.createSync();
 }
 
 Future<void> binaryToDist(
     {required File sourceExe,
     required String programName,
     required Directory targetDir}) async {
+  createOnNeed(targetDir);
+
   print("* Source: ${sourceExe.path}");
 
   final arch = detectArchitecture(sourceExe);
