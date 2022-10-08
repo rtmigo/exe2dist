@@ -138,7 +138,7 @@ Future<void> binaryToDist(
       arcFunc = fileToTarGz;
     }
     final targetFile = File(
-        path.join(targetDir.path, "${programName}_${arch.string}$arcSuffix"));
+        path.join(targetDir.path, "${programName}_${arch.combined}$arcSuffix"));
     if (targetFile.existsSync()) {
       throw TargetFileAlreadyExistsException(targetFile);
     }
