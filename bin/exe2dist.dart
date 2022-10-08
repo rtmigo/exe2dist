@@ -26,16 +26,16 @@ Future<void> main(List<String> arguments) async {
   final sourceGlob = arguments[1];
   final targetDir = Directory(arguments[2]);
 
-  for (final entity in Glob(sourceGlob).listSync()) {
-    if (entity
-        .statSync()
-        .type == FileSystemEntityType.file) {
-      await binaryToDist(
-          sourceExe: File(entity.path),
-          programName: programName,
-          targetDir: targetDir
-      );
+  try {
+    for (final entity in Glob(sourceGlob).listSync()) {
+      if (entity.statSync().type == FileSystemEntityType.file) {
+        await binaryToDist(
+            sourceExe: File(entity.path),
+            programName: programName,
+            targetDir: targetDir);
+      }
     }
+  } on ExpectedException catch (e) {
+    print("ERROR: $e");
   }
 }
-
