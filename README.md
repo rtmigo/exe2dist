@@ -16,6 +16,24 @@ my use cases.
 `exe2dist` works on Linux and MacOS. Compressible binaries can be for other
 platforms as well.
 
+## Install
+
+Compiled executables can be downloaded manually from the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
+
+For use as part of CI/CD, a command-line installation is more suitable.
+
+Download and unpack the Linux version to the current directory in one line.
+
+```bash
+wget -c https://github.com/rtmigo/exe2dist_dart/releases/download/0.2.2/exe2dist_linux_amd64.tgz -O - | tar -xz
+```
+
+Same for the newest version instead of the fixed one.
+
+```bash
+wget -c https://github.com/rtmigo/exe2dist_dart/releases/latest/download/exe2dist_linux_amd64.tgz -O - | tar -xz
+```
+
 ## Use
 
 Archive file `./native_exe` to a distributable 
