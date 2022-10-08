@@ -26,7 +26,7 @@ Download and unpack the Linux version to the current directory in one line.
 
 ```bash
 # install
-wget -c https://github.com/rtmigo/exe2dist_dart/releases/download/0.2.2/exe2dist_linux_amd64.tgz -O - | tar -xz
+wget -c https://github.com/rtmigo/exe2dist/releases/download/0.2.2/exe2dist_linux_amd64.tgz -O - | tar -xz
 
 # run
 ./exe2dist
@@ -35,7 +35,7 @@ wget -c https://github.com/rtmigo/exe2dist_dart/releases/download/0.2.2/exe2dist
 Same for the newest version instead of the fixed one.
 
 ```bash
-wget -c https://github.com/rtmigo/exe2dist_dart/releases/latest/download/exe2dist_linux_amd64.tgz -O - | tar -xz
+wget -c https://github.com/rtmigo/exe2dist/releases/latest/download/exe2dist_linux_amd64.tgz -O - | tar -xz
 ```
 
 ## Use
