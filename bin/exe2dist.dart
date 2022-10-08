@@ -17,13 +17,13 @@ Future<void> main(List<String> arguments) async {
     print("  exe2dist <source-glob> <program-name> <target-dir>");
     print("");
     print("Examples:");
-    print("  exe2dist myfile.exe theapp distros/");
-    print("  exe2dist binaries/* theapp distros/");
+    print("  exe2dist theapp myfile.exe distros/");
+    print("  exe2dist theapp binaries/* distros/");
     exit(64);
   }
 
-  final sourceGlob = arguments[0];
-  final programName = arguments[1];
+  final programName = arguments[0];
+  final sourceGlob = arguments[1];
   final targetDir = Directory(arguments[2]);
 
   for (final entity in Glob(sourceGlob).listSync()) {
