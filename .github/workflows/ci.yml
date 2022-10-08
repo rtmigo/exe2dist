@@ -1,0 +1,125 @@
+# ! IT SHOULD NOT BE RUN ON PULL REQUESTS
+
+name: unittest
+
+on:
+  push:
+    branches: [dev]
+    paths-ignore:
+      - 'example/*'
+      - '**.md'
+      - '**.txt'
+
+concurrency:
+  # subsequently queued workflow run will interrupt previous runs
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  build:
+
+    timeout-minutes: 9
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: 2.18.0
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Update constants
+        run: dart script/update_constants.dart
+
+      - name: Test
+        run: dart test --platform vm --timeout=60s
+        env:
+          # we use gh, so we need the token even if we don't read private repos
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build exe
+        run: |
+          mkdir build
+          dart compile exe bin/ghcp.dart -o build/ghcp.exe
+
+      - name: Create ZIP with the exe
+        run: |
+          dart script/archive.dart
+
+      - name: Store ZIP as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: binary_from_${{ matrix.os }}
+          path: build/*.zip
+          retention-days: 3
+
+
+  to-staging:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Merge current -> master
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: staging
+          github_token: ${{ github.token }}
+
+  publish-flag:
+    if: github.event.head_commit.message=='publish'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+  to-master:
+    needs: [ to-staging,
+             publish-flag ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Merge to master branch
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: master
+          github_token: ${{ github.token }}
+
+  to-github-release:
+    needs: [ to-staging,
+             publish-flag ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1.3
+        # needed for get version
+        with:
+          sdk: 2.18.0
+
+      - name: Install Dart dependencies
+        run: dart pub get
+
+      - name: Get the project version
+        run: |
+          echo "::set-output name=VER::$(dart script/version.dart)"
+        id: version
+
+      - name: Get previously built artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: downloaded_artifacts
+
+      - name: Publish GitHub release
+        id: publish_github_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.VER }}
+          files: ./downloaded_artifacts/*/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
