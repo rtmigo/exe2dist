@@ -1,4 +1,4 @@
-# [exe2dist](https://github.com/rtmigo/exe2dist_dart) #experimental
+# [exe2dist](https://github.com/rtmigo/exe2dist) #experimental
 
 A CLI tool that packages a binary executable into a redistributable archive. 
 
@@ -58,4 +58,3 @@ exe2dist theapp binaries/* distros/
 
 Copyright © 2022 [Artsiom iG](https://github.com/rtmigo).
 Released under the [MIT License](LICENSE).
-
