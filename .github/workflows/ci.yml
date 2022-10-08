@@ -52,11 +52,11 @@ jobs:
           build/exe2dist.exe exe2dist build/exe2dist.exe build/dist/ 
           #dart script/archive.dart
 
-      - name: Store ZIP as artifact
+      - name: Store ZIP or TGZ as artifact
         uses: actions/upload-artifact@v3
         with:
           name: binary_from_${{ matrix.os }}
-          path: build/dist/*.zip
+          path: build/dist/*
           retention-days: 3
 
 
