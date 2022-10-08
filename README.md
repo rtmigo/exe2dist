@@ -14,7 +14,7 @@ A CLI tool that packages a binary executable into a redistributable archive.
 I use this tool to automate my CI/CD. Therefore, the functionality is limited to
 my use cases.
 
-`exe2dist` runs on Linux and MacOS. It detects   
+`exe2dist` runs on Linux and MacOS.   
 
 The executables that are being processed may be for other platforms.
 
