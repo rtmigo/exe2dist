@@ -1,36 +1,42 @@
 # [exe2dist](https://github.com/rtmigo/exe2dist) #experimental
 
-A CLI tool that packages a binary executable into a redistributable archive. 
+CLI utility that packs a binary executable into a redistributable archive. 
+
+--------------------------------------------------------------------------------
 
 `dir/native_binary1` ⮕ `myapp_linux_arm64.tgz` with `myapp` inside 
 
 `dir/native_binary2` ⮕ `myapp_windows_amd64.zip` with `myapp.exe` inside
 
+--------------------------------------------------------------------------------
 * detects the architecture for which the executable is compiled
 * sets executable bits for *nix binaries (`chmod 755`)
 * adds `.exe` extension to Windows executables 
 * packs the binary to an archive appropriate for the platform
+--------------------------------------------------------------------------------
 
-I use this tool to automate my CI/CD. Therefore, the functionality is limited to
-my use cases.
+`exe2dist` itself runs on Linux and MacOS. It may process files for other
+platforms.
 
-`exe2dist` runs on Linux and MacOS.   
 
-The executables that are being processed may be for other platforms.
+I use this tool to automate my CI/CD. Therefore, the functionality for now is
+limited to my use cases.
 
-## Install
+## Install manually
 
-Compiled executables can be downloaded manually from the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
+Compiled executables can be downloaded from the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
 
-For use as part of CI/CD, a command-line installation is more suitable.
+## Install from command line
 
-Download and unpack the Linux version to the current directory in one line.
+Download and unpack the Linux version to the current directory.
 
 ```bash
-# install
 wget -c https://github.com/rtmigo/exe2dist/releases/download/0.2.3/exe2dist_linux_amd64.tgz -O - | tar -xz
+```
 
-# run
+Run immediately:
+
+```bash
 ./exe2dist
 ```
 
