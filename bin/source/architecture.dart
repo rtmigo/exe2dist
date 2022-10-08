@@ -25,9 +25,9 @@ Architecture detectArchitecture(File file) {
   final stdout = pr.stdout.toString();
   bool containsAll(List<String> l) => l.every((s) => stdout.contains(s));
 
-  if (containsAll(["Mach-O 64-bit x86_64 executable"])) {
+  if (containsAll(["Mach-O", "x86_64", "executable"])) {
     return Architecture("macos_x86-64");
-  } if (containsAll(["Mach-O 64-bit arm64 executable"])) {
+  } if (containsAll(["Mach-O", "arm64", "executable"])) {
     return Architecture("macos_arm64");
   } else if (containsAll(["for GNU/Linux", "x86-64"])) {
     return Architecture("linux_x86-64");
