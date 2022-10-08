@@ -1,2 +1,2 @@
 dart script/update_constants.dart
-dart compile exe bin/ghcp.dart -o build/ghcp.exe
+dart compile exe bin/exe2dist.dart -o build/exe2dist.exe

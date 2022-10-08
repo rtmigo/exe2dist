@@ -74,10 +74,17 @@ class TempExeWithPermissions {
   }
 }
 
+class TargetFileAlreadyExistsException extends Error {
+  final File file;
+  TargetFileAlreadyExistsException(this.file);
+}
+
 Future<void> binaryToDist(
     {required File sourceExe,
     required String programName,
     required Directory targetDir}) async {
+  print("* Source: ${sourceExe.path}");
+
   final arch = detectArchitecture(sourceExe);
 
   late final String entryName;
@@ -97,8 +104,12 @@ Future<void> binaryToDist(
     }
     final targetFile = File(
         path.join(targetDir.path, "${programName}_${arch.string}$arcSuffix"));
-
+    if (targetFile.existsSync()) {
+      throw TargetFileAlreadyExistsException(targetFile);
+    }
+    print("  Target: ${targetFile.path}");
     await arcFunc(exeWithPermissions.readyExe, entryName, targetFile);
+    print("  Created successfully");
   } finally {
     exeWithPermissions.close();
   }
