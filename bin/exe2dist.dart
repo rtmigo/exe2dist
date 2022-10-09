@@ -8,7 +8,21 @@ import 'source/constants.g.dart';
 import 'source/expections.dart';
 
 Future<void> main(List<String> arguments) async {
-  main(arguments);
+  await main(arguments);
+}
+
+class NoFilesFoundException extends ExpectedException {}
+
+Iterable<File> globFiles(List<String> patterns) sync* {
+  for (final pattern in patterns) {
+    for (final entity in Glob(pattern).listSync()) {
+      if (entity
+          .statSync()
+          .type == FileSystemEntityType.file) {
+        yield File(entity.path);
+      }
+    }
+  }
 }
 
 Future<void> mainRun(List<String> arguments) async {
@@ -33,19 +47,18 @@ Future<void> mainRun(List<String> arguments) async {
   final targetDir = Directory(arguments.last);
 
   try {
-    for (final pattern in sourceFilePatterns) {
-      for (final entity in Glob(pattern).listSync()) {
-        if (entity
-            .statSync()
-            .type == FileSystemEntityType.file) {
-          await binaryToDist(
-              sourceExe: File(entity.path),
-              programName: programName,
-              targetDir: targetDir);
-        }
-      }
+    final files = globFiles(sourceFilePatterns).toList();
+    if (files.isEmpty) {
+      throw NoFilesFoundException();
+    }
+    for (final file in files) {
+      await binaryToDist(
+          sourceExe: file,
+          programName: programName,
+          targetDir: targetDir);
     }
   } on ExpectedException catch (e) {
     stderr.writeln("ERROR: $e");
+    exit(1);
   }
 }

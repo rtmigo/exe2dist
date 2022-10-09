@@ -28,7 +28,6 @@ void main() {
   });
 
   test('glob expanded (or multiple files)', () async {
-    // glob pattern was in single quotes, so it was not expanded
     expect(tempDir!.listSync().length, 0);
     await mainRun(["abc",
       "test/samples/go_linux_386",
@@ -36,4 +35,11 @@ void main() {
       tempDir!.path]);
     expect(tempDir!.listSync().length, 2);
   });
+
+  test('single file', () async {
+    expect(tempDir!.listSync().length, 0);
+    await mainRun(["abc", "test/samples/go_linux_386", tempDir!.path]);
+    expect(tempDir!.listSync().length, 1);
+  });
+
 }
