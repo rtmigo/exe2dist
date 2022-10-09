@@ -33,10 +33,6 @@ problem.
 `exe2dist` itself runs on Linux and MacOS. It may process files for other
 platforms.
 
-
-I use this tool to automate my CI/CD. Therefore, the functionality for now is
-limited to my use cases.
-
 ## Install manually
 
 Compiled executables can be downloaded from the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
