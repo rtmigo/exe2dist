@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: (c) 2022 Artsiom iG <github.com/rtmigo>
+// SPDX-License-Identifier: MIT
+
 import 'dart:io';
 
 class ExpectedException extends Error {}
