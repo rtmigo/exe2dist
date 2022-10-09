@@ -1,6 +1,6 @@
 # [exe2dist](https://github.com/rtmigo/exe2dist) #experimental
 
-CLI utility that packs a binary executable into a redistributable archive. 
+CLI utility that packs a binary executable into a redistributable archive.
 
 --------------------------------------------------------------------------------
 
@@ -24,10 +24,12 @@ problem.
 
 
 --------------------------------------------------------------------------------
+
 * It detects the architecture for which the executable is compiled
 * It sets executable bits for *nix binaries (`chmod 755`)
-* It adds `.exe` extension to Windows executables 
+* It adds `.exe` extension to Windows executables
 * It packs the binary to an archive appropriate for the platform
+
 --------------------------------------------------------------------------------
 
 `exe2dist` itself runs on Linux and MacOS. It may process files for other
@@ -35,7 +37,8 @@ platforms.
 
 ## Install manually
 
-Compiled executables can be downloaded from the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
+Compiled executables can be downloaded from
+the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
 
 ## Install from command line
 
@@ -59,19 +62,28 @@ wget -c https://github.com/rtmigo/exe2dist/releases/latest/download/exe2dist_lin
 
 ## Use
 
-Archive file `./native_exe` to a distributable 
+Archive file `./native_exe` to a distributable
 like `distros/theapp_macos_arm64.tgz`:
 
 ```bash
 exe2dist theapp native_exe distros/
 ```
 
-Archive all files in `./binaries` creating appropriate distributable files in 
+Archive all files in `./binaries` creating appropriate distributable files in
 `distros`:
 
 ```bash
 exe2dist theapp binaries/* distros/
 ```
+
+## Platforms
+
+We are safe as long as the executables are for **Linux**, **MacOS** (Darwin) or
+**Windows**, for **x86-64** (AMD64) or **ARM64** platforms.
+
+If you are building executables for *BSD or more exotic *nix systems, this
+utility should be used with caution. It will rely on guesswork, and may wrongly
+assume, that the executable is for Linux.
 
 ## License
 
