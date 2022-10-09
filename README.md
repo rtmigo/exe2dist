@@ -42,7 +42,7 @@ Compiled executables can be downloaded from the [releases page](https://github.c
 Download and unpack the Linux version to the current directory.
 
 ```bash
-wget -c https://github.com/rtmigo/exe2dist/releases/download/0.2.3/exe2dist_linux_amd64.tgz -O - | tar -xz
+wget -c https://github.com/rtmigo/exe2dist/releases/download/0.3.0/exe2dist_linux_amd64.tgz -O - | tar -xz
 ```
 
 Run immediately:
