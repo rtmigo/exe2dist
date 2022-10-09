@@ -4,6 +4,7 @@ import 'package:archive/archive_io.dart';
 import 'package:path/path.dart' as path;
 
 import 'architecture.dart';
+import 'expections.dart';
 
 Future<void> fileToGzip(File source, File targetGzip) async {
   final input = InputFileStream(source.path);
@@ -75,29 +76,6 @@ class TempExeWithPermissions {
   }
 }
 
-class ExpectedException extends Error {}
-
-class TargetFileAlreadyExistsException extends ExpectedException {
-  final File file;
-
-  TargetFileAlreadyExistsException(this.file);
-
-  @override
-  String toString() {
-    return "$runtimeType: ${file.path}";
-  }
-}
-
-class ParentDirectoryNotExistsException extends ExpectedException {
-  final Directory dir;
-
-  ParentDirectoryNotExistsException(this.dir);
-
-  @override
-  String toString() {
-    return "$runtimeType: ${dir.path}";
-  }
-}
 
 /// Создаёт каталог, если он ещё не существует, но существует родительский.
 void createOnNeed(Directory dir) {

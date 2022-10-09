@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'expections.dart';
+
 class Architecture {
   final String os;
   final String platform;
@@ -11,7 +13,7 @@ class Architecture {
   bool get isWindows => os == "windows";
 }
 
-class UnknownArchitectureException extends Error {
+class UnknownArchitectureException extends ExpectedException {
   UnknownArchitectureException({required this.processResult});
 
   final ProcessResult processResult;
