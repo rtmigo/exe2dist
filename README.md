@@ -78,8 +78,9 @@ exe2dist theapp binaries/* distros/
 
 ## Platforms
 
-We are safe as long as the executables are for **Linux**, **MacOS** (Darwin) or
-**Windows**, for **x86-64** (AMD64) or **ARM64** platforms.
+The safe systems are **Linux**, **MacOS** (Darwin) and **Windows**.
+
+The safe platforms are **x86-64** (AMD64) and **ARM64**. 
 
 If you are building executables for *BSD or more exotic *nix systems, this
 utility should be used with caution. It will rely on guesswork, and may wrongly
