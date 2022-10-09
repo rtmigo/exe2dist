@@ -44,7 +44,7 @@ void main() {
     );
 
     expect(tempDir!.listSync().map((e) => path.basename(e.path)).toList(),
-        ['abc_macos_amd64.tgz']);
+        ['abc_darwin_amd64.tgz']);
   });
 
   test("windows", () async {
@@ -56,16 +56,5 @@ void main() {
 
     expect(tempDir!.listSync().map((e) => path.basename(e.path)).toList(),
         ['abc_windows_amd64.zip']);
-  });
-
-  test("detecting architecture", () {
-    // expect(detectArchitecture(File("test/executables/ghcp_linux_amd64")).string,
-    //     'linux_amd64');
-    // expect(detectArchitecture(File("test/executables/ghcp_osx_amd64")).string,
-    //     'macos_amd64');
-    // expect(detectArchitecture(File("test/executables/ghcp_windows_amd64")).string,
-    //     'windows_amd64');
-    // expect(()=>detectArchitecture(File("test/executables/labuda.txt")),
-    //     throwsA(isA<UnknownArchitectureException>()));
   });
 }
