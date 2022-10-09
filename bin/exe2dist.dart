@@ -8,7 +8,7 @@ import 'source/constants.g.dart';
 import 'source/expections.dart';
 
 Future<void> main(List<String> arguments) async {
-  await main(arguments);
+  await mainRun(arguments);
 }
 
 class NoFilesFoundException extends ExpectedException {}
