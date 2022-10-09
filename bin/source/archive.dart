@@ -11,7 +11,8 @@ Future<void> fileToGzip(File source, File targetGzip) async {
   try {
     final output = OutputFileStream(targetGzip.path);
     try {
-      GZipEncoder().encode(input, output: output, level: 9);
+      GZipEncoder()
+          .encode(input, output: output, level: Deflate.BEST_COMPRESSION);
     } finally {
       await output.close();
     }
@@ -41,7 +42,8 @@ Future<void> fileToTarGz(File source, String entryName, File targetTgz) async {
   }
 }
 
-Future<void> toZip(File sourceFile, String entryName, File zipFile) async {
+Future<void> zipSingleFile(
+    File sourceFile, String entryName, File zipFile) async {
   if (!zipFile.path.endsWith(".zip")) {
     throw ArgumentError(zipFile);
   }
@@ -50,7 +52,7 @@ Future<void> toZip(File sourceFile, String entryName, File zipFile) async {
   }
 
   final zip = ZipFileEncoder();
-  zip.create(zipFile.path);
+  zip.create(zipFile.path, level: Deflate.BEST_COMPRESSION);
   zip.addFile(sourceFile, entryName);
   zip.close();
 }
@@ -75,7 +77,6 @@ class TempExeWithPermissions {
     _tempDir.deleteSync(recursive: true);
   }
 }
-
 
 /// Создаёт каталог, если он ещё не существует, но существует родительский.
 void createOnNeed(Directory dir) {
@@ -109,7 +110,7 @@ Future<void> binaryToDist(
     if (arch.isWindows) {
       entryName = "$programName.exe";
       arcSuffix = ".zip";
-      arcFunc = toZip;
+      arcFunc = zipSingleFile;
     } else {
       entryName = programName;
       arcSuffix = ".tgz";
