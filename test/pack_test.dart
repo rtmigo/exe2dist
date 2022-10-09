@@ -44,7 +44,7 @@ void main() {
     );
 
     expect(tempDir!.listSync().map((e) => path.basename(e.path)).toList(),
-        ['abc_macos_amd64.tgz']);
+        ['abc_darwin_amd64.tgz']);
   });
 
   test("windows", () async {
