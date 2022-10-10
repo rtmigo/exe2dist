@@ -50,7 +50,7 @@ the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
 Download and unpack the Linux version to the current directory.
 
 ```bash
-wget -c https://github.com/rtmigo/exe2dist/releases/download/0.3.2/exe2dist_linux_amd64.tgz -O - | tar -xz
+wget -c https://github.com/rtmigo/exe2dist/releases/download/0.3.3/exe2dist_linux_amd64.tgz -O - | tar -xz
 ```
 
 Run immediately:
