@@ -1,6 +1,19 @@
-# [exe2dist](https://github.com/rtmigo/exe2dist) #experimental
+# [exe2dist](https://github.com/rtmigo/exe2dist)
 
 CLI utility that packs a binary executable into a redistributable archive.
+
+`outs/1/compiled.kexe` ⮕ `myapp_linux_arm64.tgz` with `myapp` inside
+
+`outs/2/compiled.kexe` ⮕ `myapp_windows_amd64.zip` with `myapp.exe` inside
+
+`outs/3/compiled.kexe` ⮕ `myapp_macos_arm64.tgz` with `myapp` inside
+
+--------------------------------------------------------------------------------
+
+* It detects the architecture for which the executable is compiled
+* It sets executable bits for *nix binaries (`chmod 755`)
+* It adds `.exe` extension to Windows executables
+* It packs the binary to an archive appropriate for the platform
 
 --------------------------------------------------------------------------------
 
@@ -16,23 +29,15 @@ Before the release, we can collect all the built files in one directory.
 But how to distinguish and name them? `exe2dist` automatically solves this
 problem.
 
-`outs/1/compiled.kexe` ⮕ `myapp_linux_arm64.tgz` with `myapp` inside
+```bash
+exe2dist myapp outs/*/*.kexe targetdir
+```
 
-`outs/2/compiled.kexe` ⮕ `myapp_windows_amd64.zip` with `myapp.exe` inside
-
-`outs/3/compiled.kexe` ⮕ `myapp_macos_arm64.tgz` with `myapp` inside
-
-
---------------------------------------------------------------------------------
-
-* It detects the architecture for which the executable is compiled
-* It sets executable bits for *nix binaries (`chmod 755`)
-* It adds `.exe` extension to Windows executables
-* It packs the binary to an archive appropriate for the platform
+This command will create three archives with friendly names. 
 
 --------------------------------------------------------------------------------
 
-`exe2dist` itself runs on Linux and MacOS. It may process files for other
+`exe2dist` runs on Linux and macOS. It may process binaries that target other
 platforms.
 
 ## Install manually
@@ -40,7 +45,7 @@ platforms.
 Compiled executables can be downloaded from
 the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
 
-## Install from command line
+## Install via command line
 
 Download and unpack the Linux version to the current directory.
 
@@ -78,11 +83,11 @@ exe2dist theapp binaries/* distros/
 
 ## Platforms
 
-The safe systems are **Linux**, **MacOS** (Darwin) and **Windows**.
+The safe systems are **Linux**, **macOS** (Darwin) and **Windows**.
 
 The safe platforms are **x86-64** (AMD64) and **ARM64**. 
 
-If you are building executables for *BSD or more exotic *nix systems, this
+If you are building executables for *BSD or more rare *nix systems, this
 utility should be used with caution. It will rely on guesswork, and may wrongly
 assume, that the executable is for Linux.
 
