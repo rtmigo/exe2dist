@@ -42,8 +42,11 @@ platforms.
 
 ## Install manually
 
-Compiled executables can be downloaded from
-the [releases page](https://github.com/rtmigo/exe2dist_dart/releases).
+Download and extract a binary executable [release](https://github.com/rtmigo/exe2dist/releases):
+
+* [for macOS](https://github.com/rtmigo/exe2dist/releases/latest/download/exe2dist_darwin_amd64.tgz)
+* [for Linux](https://github.com/rtmigo/exe2dist/releases/latest/download/exe2dist_linux_amd64.tgz)
+* [for Windows](https://github.com/rtmigo/exe2dist/releases/latest/download/exe2dist_windows_amd64.zip)
 
 ## Install via command line
 
